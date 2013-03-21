@@ -48,6 +48,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GameServiceTests.cs" />
     <Compile Include="Utilities\InMemoryGameStateRepository.cs" />
+    <Compile Include="Utilities\TestDefaults.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SanJuan.Core\SanJuan.Core.csproj">

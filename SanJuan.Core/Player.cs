@@ -7,9 +7,10 @@ namespace SanJuan.Core
 {
     internal class Player : IPlayer
     {
-        public Player(Guid playerId)
+        public Player(Guid playerId, string name)
         {
             this.Id = playerId;
+            this.Name = name;
         }
 
         #region IPlayer Members

@@ -23,16 +23,19 @@ namespace SanJuan.Core.Tests
         [TestMethod]
         public void CreateGame()
         {
-            var game = _gameService.CreateGame();
+            var game = _gameService.CreateGame(TestDefaults.PLAYER_NAME_1);
+
             Assert.AreNotEqual(Guid.Empty, game.Id);
+            Assert.IsNotNull(game.Host);
+            Assert.AreEqual(TestDefaults.PLAYER_NAME_1, game.Host.Name);
         }
 
         [TestMethod]
         public void LoadSaveGame()
         {
-            // Create a game and a player and save them
-            var game = _gameService.CreateGame();
-            var player = game.AddNewPlayer();
+            // Create a game with just a host player and save it
+            var game = _gameService.CreateGame(TestDefaults.PLAYER_NAME_1);
+            var player = game.Host;
             _gameService.SaveGame(game);
 
             // Load the game and player
@@ -54,7 +57,7 @@ namespace SanJuan.Core.Tests
             IGame game;
             for (int i = 0; i < 10; i++)
             {
-                game = _gameService.CreateGame();
+                game = _gameService.CreateGame(TestDefaults.PLAYER_NAME_1);
                 _gameService.SaveGame(game);
             }
 
@@ -65,10 +68,10 @@ namespace SanJuan.Core.Tests
         [TestMethod]
         public void AddNewPlayer()
         {
-            var game = _gameService.CreateGame();
-            var player = game.AddNewPlayer();
+            var game = _gameService.CreateGame(TestDefaults.PLAYER_NAME_1);
+            var player = game.AddNewPlayer(TestDefaults.PLAYER_NAME_2);
             Assert.AreNotEqual(Guid.Empty, player.Id);
-            Assert.AreEqual(1, game.Players.Count);
+            Assert.AreEqual(2, game.Players.Count);
         }
     }
 }

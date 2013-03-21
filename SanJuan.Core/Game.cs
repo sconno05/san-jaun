@@ -20,6 +20,12 @@ namespace SanJuan.Core
             private set;
         }
 
+        public IPlayer Host
+        {
+            get;
+            private set;
+        }
+
         private List<IPlayer> _players;
         public ICollection<IPlayer> Players
         {
@@ -34,10 +40,17 @@ namespace SanJuan.Core
             }
         }
 
-        public IPlayer AddNewPlayer()
+        public IPlayer AddNewPlayer(string playerName)
         {
-            var player = new Player(Guid.NewGuid());
+            // TODO: handle duplicate player names
+            var player = new Player(Guid.NewGuid(), playerName);
             this.Players.Add(player);
+
+            if (this.Players.Count == 1)
+            {
+                this.Host = player;
+            }
+
             return player;
         }
 

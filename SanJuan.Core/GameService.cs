@@ -14,9 +14,11 @@ namespace SanJuan.Core
             _gameStateRepository = gameStateRepository;
         }
 
-        public IGame CreateGame()
+        public IGame CreateGame(string hostPlayerName)
         {
-            return new Game(Guid.NewGuid());
+            var game = new Game(Guid.NewGuid());
+            var host = game.AddNewPlayer(hostPlayerName);
+            return game;
         }
 
         public void SaveGame(IGame game)

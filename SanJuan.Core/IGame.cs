@@ -12,6 +12,8 @@ namespace SanJuan.Core
         // TODO: This should be a custom collection that enforces rules like max players.
         ICollection<IPlayer> Players { get; }
 
-        IPlayer AddNewPlayer();
+        IPlayer Host { get; }
+
+        IPlayer AddNewPlayer(string playerName);
     }
 }
