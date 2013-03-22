@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SanJuan.Core
 {
-    internal class Game : IGame
+    internal class Game : IGame, IActiveGame
     {
         public Game(Guid id)
         {
@@ -52,6 +52,31 @@ namespace SanJuan.Core
             }
 
             return player;
+        }
+
+        public IActiveGame Start()
+        {
+            // TODO: Move these to constants or static somewhere.
+            if (this.Players.Count < 2 || this.Players.Count > 4)
+            {
+                throw new InvalidOperationException("A game can only be started when there are 2-4 players");
+            }
+
+            var random = new Random();
+            int next = random.Next(0, this.Players.Count - 1);
+            this.StartingPlayer = this.Players.ElementAt(next);
+
+            return this as IActiveGame;
+        }
+
+        #endregion
+
+        #region IActiveGame Members
+
+        public IPlayer StartingPlayer
+        {
+            get;
+            private set;
         }
 
         #endregion

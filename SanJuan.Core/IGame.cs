@@ -15,5 +15,7 @@ namespace SanJuan.Core
         IPlayer Host { get; }
 
         IPlayer AddNewPlayer(string playerName);
+
+        IActiveGame Start();
     }
 }

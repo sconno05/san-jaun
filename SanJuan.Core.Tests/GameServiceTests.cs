@@ -31,7 +31,7 @@ namespace SanJuan.Core.Tests
         }
 
         [TestMethod]
-        public void LoadSaveGame()
+        public void SaveLoadGame()
         {
             // Create a game with just a host player and save it
             var game = _gameService.CreateGame(TestDefaults.PLAYER_NAME_1);
@@ -72,6 +72,23 @@ namespace SanJuan.Core.Tests
             var player = game.AddNewPlayer(TestDefaults.PLAYER_NAME_2);
             Assert.AreNotEqual(Guid.Empty, player.Id);
             Assert.AreEqual(2, game.Players.Count);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void StartGame_1Player()
+        {
+            var game = _gameService.CreateGame(TestDefaults.PLAYER_NAME_1);
+            game.Start();
+        }
+
+        [TestMethod]
+        public void StartGame_2Players()
+        {
+            var game = _gameService.CreateGame(TestDefaults.PLAYER_NAME_1);
+            game.AddNewPlayer(TestDefaults.PLAYER_NAME_2);
+            var activeGame = game.Start();
+            Assert.IsNotNull(activeGame.StartingPlayer);
         }
     }
 }
